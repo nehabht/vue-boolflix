@@ -6,11 +6,21 @@
       <!-- al click fai andare una funzione che cerca quello che c'è scritto nel v-model input -->
       <button @click="findMovies">Search</button>
 
-
-
-
     </header>
-    <main></main>
+    <main>
+      <div class="card f-flex "  v-for="(movie,index) in movieList" :key="index" >
+        <span>{{movie.title}}</span>
+        <ul>
+          <li>{{ movie.original_title}}</li>
+          <li>{{movie.original_language}}</li>
+          <li>{{movie.vote_average}}</li>
+          
+
+        </ul>
+      </div>
+
+
+    </main>
     <footer></footer>
     
   </div>
@@ -40,7 +50,7 @@ export default {
         console.log(movie.data.results)
         //ho tutti i film che contengono la parola inserita nell'input
         //creo un'array dei film trovati
-        this.movieList.push(movie.data.results)
+        this.movieList = movie.data.results
         console.log(this.movieList)
       })
 
