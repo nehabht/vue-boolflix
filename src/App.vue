@@ -8,15 +8,19 @@
 
     </header>
     <main>
-      <div class="card f-flex "  v-for="(movie,index) in movieList" :key="index" >
+      <div class="card"  v-for="(movie,index) in movieList" :key="index" >
         <span>{{movie.title}}</span>
         <ul>
-          <li>{{ movie.original_title}}</li>
-          <li>{{movie.original_language}}</li>
-          <li>{{movie.vote_average}}</li>
+          <li>Titolo originale: {{ movie.original_title}}</li>
+          <li>
+            <span>{{movie.original_language}} </span>
+            <flag :iso="movie.original_language === 'en' ? 'us' : movie.original_language"/>
+          </li>
+          <li>Voto: {{movie.vote_average}}</li>
           
 
         </ul>
+        
       </div>
 
 
@@ -54,7 +58,8 @@ export default {
         console.log(this.movieList)
       })
 
-    }
+    },
+
 
 
 
