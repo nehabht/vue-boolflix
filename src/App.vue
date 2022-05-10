@@ -25,7 +25,16 @@
                     <span>{{content.original_language}} </span>
                     <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
                   </li>
-                  <li>Voto: {{content.vote_average}}</li>
+                  <li>Voto: {{content.vote_average}} {{voteContent (content.vote_average)}}</li>
+                  <!-- stars rating -->
+                  <i v-for="fullStars in voteContent(content.vote_average)" :key='fullStars'>
+                    <span class="star-full">{{fullStars}} </span>
+                  </i>
+                  <i v-for="emptyStars in 5 - voteContent(content.vote_average)" :key='emptyStars'>
+                    <span class="star-empty">{{emptyStars}} </span>
+                  </i>
+
+                 
                 </ul>
               </div>
             </div>
@@ -74,9 +83,13 @@ export default {
     contentPoster (content){
       if(content.poster_path != null){
         return 'https://image.tmdb.org/t/p/w500' + content.poster_path
-      } else {
-        return 
-      }
+      } 
+      //null non funziona?
+
+    },
+    //metodo per voto in stelle da 1 a 5
+    voteContent (element) {
+      return Math.ceil(element/2)
 
     }
 
@@ -94,6 +107,21 @@ export default {
     max-height: 500px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+}
+
+.star-empty{
+  background-color: goldenrod;
+  margin: 2px;
+  color:transparent;
+  height: 5px;
+  width: 5px;
+}
+.star-full{
+  background-color: red;
+  height: 5px;
+  width: 5px;
+  color:transparent;
+  margin: 2px;
 }
 
 </style>
