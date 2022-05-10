@@ -4,21 +4,24 @@
       <input type="text" v-model="searchInput">
 
       <!-- al click fai andare una funzione che cerca quello che c'è scritto nel v-model input -->
-      <button @click="findMovies">Search</button>
+      <button @click="findContent">Search</button>
 
     </header>
     <main>
-      <div class="card"  v-for="(movie,index) in movieList" :key="index" >
-        <span>{{movie.title}}</span>
+      <div class="card"  v-for="(content,index) in contentList" :key="index" >
+        <h4>{{content.title}}</h4>
+        <h4>{{content.name}}</h4>
+        <p>{{content.media_type}}</p>
         <ul>
-          <li>Titolo originale: {{ movie.original_title}}</li>
+          <li>Titolo originale: {{ content.original_title}}</li>
           <li>
-            <span>{{movie.original_language}} </span>
-            <flag :iso="movie.original_language === 'en' ? 'us' : movie.original_language"/>
+            <span>{{content.original_language}} </span>
+            <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
           </li>
-          <li>Voto: {{movie.vote_average}}</li>
-          
+          <li>Voto: {{content.vote_average}}</li>
 
+          <!-- promise all. response in posizione 1 e response in posizione 2  -->
+          
         </ul>
         
       </div>
@@ -42,25 +45,23 @@ export default {
       return {
         searchInput: '',
         //mi ci inserice l'input
-        movieList: [],
+        contentList: [],
 
       };
   },
   methods:{
-    findMovies (){
-      axios.get('https://api.themoviedb.org/3/search/movie?api_key=b90e58da8434e9d8b5c5a264bfa4c08d&language=en-US&page=1&include_adult=false&query=' + this.searchInput)
+    findContent (){
+      axios.get('https://api.themoviedb.org/3/search/multi?api_key=b90e58da8434e9d8b5c5a264bfa4c08d&language=en-US&page=1&include_adult=false&query=' + this.searchInput)
       
-      .then((movie)=> {
-        console.log(movie.data.results)
+      .then((content)=> {
+        console.log(content.data.results)
         //ho tutti i film che contengono la parola inserita nell'input
         //creo un'array dei film trovati
-        this.movieList = movie.data.results
-        console.log(this.movieList)
+        this.contentList = content.data.results
+        console.log(this.contentList)
       })
 
     },
-
-
 
 
 
