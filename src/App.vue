@@ -8,22 +8,31 @@
 
     </header>
     <main>
-      <div class="card"  v-for="(content,index) in contentList" :key="index" >
-        <h4>{{content.title}}</h4>
-        <h4>{{content.name}}</h4>
-        <p>{{content.media_type}}</p>
-        <ul>
-          <li>Titolo originale: {{ content.original_title}}</li>
-          <li>
-            <span>{{content.original_language}} </span>
-            <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
-          </li>
-          <li>Voto: {{content.vote_average}}</li>
+      <div class="container mt-3">
+        <div class="row row-cols-3 row-cols-lg-4">
+          <div class="col " v-for="(content,index) in contentList" :key="index">
+            <div class="card mb-3 overflow-auto" >
+              <div class="card_top">
+                <img :src="contentPoster(content)" alt="">  
+              </div>
+              <div class="card_bottom">
+                <h4>{{content.title}}</h4>
+                <h4>{{content.name}}</h4>
+                <p>{{content.media_type}}</p>
+                <ul>
+                  <li>Titolo originale: {{ content.original_title}}</li>
+                  <li>
+                    <span>{{content.original_language}} </span>
+                    <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
+                  </li>
+                  <li>Voto: {{content.vote_average}}</li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
 
-          <!-- promise all. response in posizione 1 e response in posizione 2  -->
-          
-        </ul>
-        
+        </div>
       </div>
 
 
@@ -55,13 +64,21 @@ export default {
       
       .then((content)=> {
         console.log(content.data.results)
-        //ho tutti i film che contengono la parola inserita nell'input
-        //creo un'array dei film trovati
+        //ho tutti i contenuti che contengono la parola inserita nell'input
+        //creo un'array con film e serie trovati
         this.contentList = content.data.results
         console.log(this.contentList)
       })
 
     },
+    contentPoster (content){
+      if(content.poster_path != null){
+        return 'https://image.tmdb.org/t/p/w500' + content.poster_path
+      } else {
+        return 
+      }
+
+    }
 
 
 
@@ -71,5 +88,12 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/style.scss";
+
+.card {
+    justify-content: space-between;
+    max-height: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
 
 </style>
