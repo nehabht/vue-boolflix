@@ -23,16 +23,22 @@
                   <li>Titolo originale: {{ content.original_title}}</li>
                   <li>
                     <span>{{content.original_language}} </span>
+                    <!-- flags -->
                     <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
                   </li>
-                  <li>Voto: {{content.vote_average}} {{voteContent (content.vote_average)}}</li>
-                  <!-- stars rating -->
-                  <i v-for="fullStars in voteContent(content.vote_average)" :key='fullStars'>
-                    <span class="star-full">{{fullStars}} </span>
-                  </i>
-                  <i v-for="emptyStars in 5 - voteContent(content.vote_average)" :key='emptyStars'>
-                    <span class="star-empty">{{emptyStars}} </span>
-                  </i>
+
+                  <!-- ratings -->
+                  <li>Voto: 
+                    <!-- rating in numeri -->
+                    <!-- {{content.vote_average}} {{voteContent (content.vote_average)}} -->
+                    <!-- rating in stelle -->
+                    <i v-for="fullStars in voteContent(content.vote_average)" :key='fullStars.id'>
+                      <font-awesome-icon icon="fa-solid fa-star" />
+                    </i>
+                    <i v-for="emptyStars in 5 - voteContent(content.vote_average)" :key='emptyStars.id'>
+                      <font-awesome-icon icon="fa-regular fa-star" />
+                    </i>
+                  </li>
 
                  
                 </ul>
