@@ -19,8 +19,45 @@ img{
 
 }
 
+body{
+    background-color: #171717;
+}
+
 header{
-    padding: 60px 0;
+    height: 60px;
     background-color: black;
-    text-align: center;
+}
+
+.btn{
+    background-color: #D50F1F;
+    color: white;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+
+
+    &:hover{
+        filter: saturate(200%);
+        color:white;
+    }
+    
+}
+
+input{
+    height: 25px;
+    border-radius: 13px;
+    padding: 3px 10px;
+    background-color: lightgray;
+
+}
+
+input:focus {
+    outline:none;
+}
+
+.card{
+    border: none;
+    border-radius: 10px;
 }

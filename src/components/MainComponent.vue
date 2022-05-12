@@ -1,40 +1,40 @@
 <template>
     <main>
-        <button @click="listaContenuti()">listaContenuti</button>
+        <button class="btn" @click="listaContenuti()">listaContenuti</button>
 
         <div class="container mt-3">
-            <div class="row row-cols-3 row-cols-lg-4">
-            <div class="col " v-for="(content,index) in searchedContent" :key="index">
-                <div class="card mb-3 overflow-auto" >
-                <div class="card_top">
-                    <img :src="contentPoster(content)" alt="">  
-                </div>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 ">
+            <div class="col " v-for="content in searchedContent" :key="content.id">
+                <div class="card mb-3 " >
+
+                <img :src="contentPoster(content)" alt="">  
+
                 <div class="card_bottom">
                     <h4>{{content.title}}</h4>
                     <h4>{{content.name}}</h4>
-                    <p>{{content.media_type}}</p>
+                    <h6>{{content.media_type}}</h6>
                     <ul>
-                    <li>Titolo originale: {{ content.original_title}}</li>
-                    <li>
-                        <span>{{content.original_language}} </span>
+                        <li>Titolo originale: {{ content.original_title}}</li>
+                        <li>
+                            <span>{{content.original_language}} </span>
                         <!-- flags -->
-                        <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
-                    </li>
+                            <flag :iso="content.original_language === 'en' ? 'us' : content.original_language"/>
+                        </li>
 
                     <!-- ratings -->
-                    <li>Voto: 
+                        <li>Voto: 
                         <!-- rating in numeri -->
                         <!-- {{content.vote_average}} {{voteContent (content.vote_average)}} -->
                         <!-- rating in stelle -->
-                        <i v-for="fullStars in voteContent(content.vote_average)" :key='fullStars.id'>
-                        <font-awesome-icon icon="fa-solid fa-star" />
-                        </i>
-                        <i v-for="emptyStars in 5 - voteContent(content.vote_average)" :key='emptyStars.id'>
-                        <font-awesome-icon icon="fa-regular fa-star" />
-                        </i>
-                    </li>
-
+                            <i v-for="fullStars in voteContent(content.vote_average)" :key='fullStars.id'>
+                            <font-awesome-icon icon="fa-solid fa-star" />
+                            </i>
+                            <i v-for="emptyStars in 5 - voteContent(content.vote_average)" :key='emptyStars.id'>
+                            <font-awesome-icon icon="fa-regular fa-star" />
+                            </i>
+                        </li>
                     </ul>
+                    <p>{{content.overview}}</p>
                 </div>
                 </div>
             </div>
@@ -49,6 +49,7 @@ import state from "@/state.js";
 
 
 
+
 export default {
   name: "MainComponent",
   components: {
@@ -57,7 +58,9 @@ export default {
   data: function (){
       return {
         //contentList: [],
-        searchedContent: []
+        searchedContent: [],
+
+
 
       };
   },
@@ -88,32 +91,65 @@ export default {
 
 
   },
+  
+
+  
 };
 </script>
 
 <style lang="scss">
 @import "@/assets/scss/style.scss";
 
+main{
+    background-color: #171717;
+}
 .card {
     justify-content: space-between;
-    max-height: 500px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-height: 400px;
+    background-color: rgb(42, 42, 41);
+
+    img{
+        overflow:hidden;
+        height: 100%;
+
+    }
+
+    
+
+    .card_bottom{
+        position: absolute;
+        opacity: 0;;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        background-color: rgb(42, 42, 41);
+        color: white;
+
+        p{
+            display: none;
+        }
+
+    }
+
+    .card_bottom:hover  {
+        opacity: 1;
+        background-color: rgb(42, 42, 41);
+        overflow: auto;
+
+        p{
+            display: inline;
+        }
+
+
+        
+    }
 
 }
 
-.star-empty{
-  background-color: goldenrod;
-  margin: 2px;
-  color:transparent;
-  height: 5px;
-  width: 5px;
+svg.svg-inline--fa.fa-star {
+    color: gold;
 }
-.star-full{
-  background-color: red;
-  height: 5px;
-  width: 5px;
-  color:transparent;
-  margin: 2px;
-}
+
+
 
 </style>
